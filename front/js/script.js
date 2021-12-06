@@ -45,7 +45,7 @@ fetch (urlAPIKanap)
 
 		const baliseA = document.createElement('a'); 		   		// création balise a
 		sectionItems.appendChild(baliseA); 				         	// ajout balise a dans balise section
-		baliseA.href = `./front/html/product.html?id=${sofa._id}`; 		 	// ajout attribut href pour lien vers page produit
+		baliseA.href = `./front/html/product.html?id=${sofa._id}`;	// ajout attribut href pour lien vers page produit
 
 		
     // Balise <article>
