@@ -33,7 +33,7 @@ fetch (urlProducts)
     // Titre page produit
 
 let titrePageProduit = document.querySelector('title');             // Pointage de la balise title
-titrePageProduit.innerHTML = "Kanap -  " + data.name;                             // Changement dynamique du nom
+titrePageProduit.innerHTML = "Kanap -  " + data.name;               // Changement dynamique du nom
 
 
     // Photo produit
@@ -127,7 +127,7 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
 
             if (RepetitionSelectionProduit.length) {
                 let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
-                    console.log(typeof SelectionProduit.QuantiteSelectionProduit);  
+                    console.log(typeof SelectionProduit.QuantiteSelectionProduit);                          // Number ou parseInt ?
                     console.log(typeof RepetitionSelectionProduit[0].QuantiteSelectionProduit);    
                     console.log(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
                     confirm ('Produit déjà présent dans votre panier. Quantité actuelle : ' + TotalQuantiteSelectionProduit);
