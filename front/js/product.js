@@ -109,10 +109,10 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
 
 
-        if (localStorage.getItem("Produits")) {                                             // "Si" récupération d'un item "Produit" par le localStorage
-            console.log(localStorage);                                                      // Vérification récupération de données : Nom du produit stocké
+        if (localStorage.getItem("Selection")) {                                             // "Si" récupération d'un item "Produit" par le localStorage
+            console.log(localStorage);                                                      // Vérification récupération de donnée
 
-            StockageSelectionProduit  = JSON.parse(localStorage.getItem("Produits"));       // Conversion d'une string JSON en un objet pour manipulation
+            StockageSelectionProduit  = JSON.parse(localStorage.getItem("Selection"));       // Conversion d'une string JSON en un objet pour manipulation
 
 
             // Cas d'une sélection produit déjà présente:  id de produit identique et une couleur identique pour un même id (&& :vrai si et uniquement si ses deux opérandes sont true ou équivalents à true)
@@ -135,14 +135,14 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
 
             } else{
                 StockageSelectionProduit.push(SelectionProduit);
-                localStorage.setItem("Produits", JSON.stringify(StockageSelectionProduit));     // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
+                localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));     // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
             }
 
         } else{
 
             console.log(SelectionProduit);
             StockageSelectionProduit.push(SelectionProduit);                                // Ajout de la sélection de produit au stockage de la sélection produit
-            localStorage.setItem("Produits", JSON.stringify(StockageSelectionProduit));
+            localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));
             console.log(SelectionProduit);
         }
 
