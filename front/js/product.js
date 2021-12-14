@@ -109,10 +109,15 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
 
 
-        if (localStorage.getItem("Selection")) {                                             // "Si" récupération d'un item "Produit" par le localStorage
-            console.log(localStorage);                                                      // Vérification récupération de donnée
+        console.log(localStorage);                                                                             // Vérification récupération de donnée     
+        if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si" récupération d'un item "Produit" par le localStorage
+            
+            console.log(localStorage); 
+            alert ("Aucun produit n'a été ajouté à votre panier.");
 
-            StockageSelectionProduit  = JSON.parse(localStorage.getItem("Selection"));       // Conversion d'une string JSON en un objet pour manipulation
+        } else{
+
+            StockageSelectionProduit = JSON.parse(localStorage.getItem("Selection"));      // Conversion d'une string JSON en un objet pour manipulation
 
 
             // Cas d'une sélection produit déjà présente:  id de produit identique et une couleur identique pour un même id (&& :vrai si et uniquement si ses deux opérandes sont true ou équivalents à true)
@@ -123,7 +128,7 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 console.log(StockageSelectionProduit);                                      // Affichage de l'array de stockage
 
 
-            // Ajout au stock et mise à jour de celui-ci avec notification à l'utilisateur
+                // Ajout au stock et mise à jour de celui-ci avec notification à l'utilisateur
 
             if (RepetitionSelectionProduit.length) {
                 let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
@@ -132,22 +137,23 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                     console.log(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
                     confirm ('Produit déjà présent dans votre panier. Quantité actuelle : ' + TotalQuantiteSelectionProduit);
                     console.log(RepetitionSelectionProduit[0]);
+                    StockageSelectionProduit.push(SelectionProduit);
+                    localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));     // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
 
             } else{
-                StockageSelectionProduit.push(SelectionProduit);
-                localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));     // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
+                
+                console.log(SelectionProduit);
+                StockageSelectionProduit.push(SelectionProduit);                                // Ajout de la sélection de produit au stockage de la sélection produit
+                localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));
+                console.log(SelectionProduit);
+                console.log("produit ajouté à la commande en cours", SelectionProduit);
+                alert ('Le produit sélectionné a bien été ajouté à votre panier.');             // Message de confirmation de validation pour l'utilisateur
+
             }
-
-        } else{
-
-            console.log(SelectionProduit);
-            StockageSelectionProduit.push(SelectionProduit);                                // Ajout de la sélection de produit au stockage de la sélection produit
-            localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));
-            console.log(SelectionProduit);
+            
         }
 
-        console.log("produit ajouté à la commande en cours", SelectionProduit);
-        alert ('Le produit sélectionné a bien été ajouté à votre panier.');                  // Message de confirmation de validation pour l'utilisateur
+                         
             
 
     })

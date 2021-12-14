@@ -43,8 +43,8 @@ if (PanierProduit === null || PanierProduit == 0) {
 
     // Utiliser la section en commentaire dans cart.html et remplir avec les éléments des produits sélectionnés (cf product.js)
 
-        let InserpanierNONVide = document.getElementById("cart__items");
-        InserpanierNONVide.insertAdjacentHTML('afterend',
+        let InserPanierNONVide = document.getElementById("cart__items");
+        InserPanierNONVide.insertAdjacentHTML('afterend',
             
             '<article class="cart__item" data-id="${PanierProduit[i].IdSelectionProduit}" data-color="${PanierProduit[i].CouleurSelectionProduit}">',
                 '<div class="cart__item__img">',
