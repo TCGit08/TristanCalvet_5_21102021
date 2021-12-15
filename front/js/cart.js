@@ -17,7 +17,7 @@ titrePagePanier.innerHTML = "Kanap - Panier";                // Changement dynam
 
 //  Récupération des éléments du panier
 
-let PanierProduit = JSON.parse(localStorage.getItem("Selection"));
+let PanierProduit = JSON.parse(localStorage.getItem('Selection'));
 console.log(PanierProduit);
 console.log(typeof(PanierProduit));
 
@@ -28,7 +28,7 @@ console.log(typeof(PanierProduit));
 
 
 if (PanierProduit === null || PanierProduit == 0) {
-    let InserPanierVide = document.getElementById("cart__items");
+    let InserPanierVide = document.getElementById('#cart__items');
     InserPanierVide.insertAdjacentHTML('afterend',
         '<div class="cart__item__img">', 
                 '<p> Votre panier ne comporte actuellement aucun produit </p>',
@@ -43,7 +43,7 @@ if (PanierProduit === null || PanierProduit == 0) {
 
     // Utiliser la section en commentaire dans cart.html et remplir avec les éléments des produits sélectionnés (cf product.js)
 
-        let InserPanierNONVide = document.getElementById("cart__items");
+        let InserPanierNONVide = document.getElementById('#cart__items');
         InserPanierNONVide.insertAdjacentHTML('afterend',
             
             '<article class="cart__item" data-id="${PanierProduit[i].IdSelectionProduit}" data-color="${PanierProduit[i].CouleurSelectionProduit}">',
