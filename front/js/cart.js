@@ -27,8 +27,8 @@ console.log(typeof(PanierProduit));
 
 // Traitement des cas possibles de PanierProduit et remplissage de <section id="cart__items">.
 
-    // Cas où le panier est vide -> aficher que le panier est vide.
 
+    // Cas où le panier est vide -> aficher que le panier est vide.
 
 if (PanierProduit === null || PanierProduit == 0) {
     
@@ -43,12 +43,12 @@ if (PanierProduit === null || PanierProduit == 0) {
         </div>`
 
     );
-        
-        
-}else{
+    
 
     // Cas où le panier n'est pas vide
-
+        
+}else{
+    
     for(i=0; i< PanierProduit.lengh; i++){
 
         // Utiliser la section en commentaire dans cart.html et remplir avec les éléments des produits sélectionnés (cf product.js)

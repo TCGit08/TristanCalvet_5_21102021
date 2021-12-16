@@ -108,11 +108,12 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // Lorsqu’on ajoute un produit au panier, si celui-ci était déjà présent dans le panier (même id + même couleur), 
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
 
-
-        console.log(localStorage);                                                                             // Vérification récupération de donnée     
+        console.log(localStorage);  
+                                                                                   // Vérification récupération de donnée     
         if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si" récupération d'un item "Produit" par le localStorage
             
             console.log(localStorage); 
+            
             alert ("Aucun produit n'a été ajouté à votre panier.");
 
         } else{
@@ -123,30 +124,44 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
             // Cas d'une sélection produit déjà présente:  id de produit identique et une couleur identique pour un même id (&& :vrai si et uniquement si ses deux opérandes sont true ou équivalents à true)
 
             const RepetitionSelectionProduit = StockageSelectionProduit.filter(product => product.CouleurSelectionProduit === SelectionProduit.CouleurSelectionProduit && product.IdSelectionProduit === SelectionProduit.IdSelectionProduit);
+
                 console.log(RepetitionSelectionProduit.length);                             // Affichage du nombre de paires clé/valeur
+
                 console.log(SelectionProduit.CouleurSelectionProduit);                      // Affichage du choix de couleur sélectionnée
+                
                 console.log(StockageSelectionProduit);                                      // Affichage de l'array de stockage
 
 
                 // Ajout au stock et mise à jour de celui-ci avec notification à l'utilisateur
 
             if (RepetitionSelectionProduit.length) {
+
                 let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
-                    console.log(typeof SelectionProduit.QuantiteSelectionProduit);                          // Number ou parseInt ?
+
+                    console.log(typeof SelectionProduit.QuantiteSelectionProduit);                        // Number ou parseInt ?
+
                     console.log(typeof RepetitionSelectionProduit[0].QuantiteSelectionProduit);    
+
                     console.log(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
+
                     confirm ('Produit déjà présent dans votre panier. Quantité actuelle : ' + TotalQuantiteSelectionProduit);
+
                     console.log(RepetitionSelectionProduit[0]);
-                    StockageSelectionProduit.push(SelectionProduit);
-                    localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));     // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
+                    
+                StockageSelectionProduit.push(SelectionProduit);
+                localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));    // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
 
             } else{
                 
                 console.log(SelectionProduit);
+
                 StockageSelectionProduit.push(SelectionProduit);                                // Ajout de la sélection de produit au stockage de la sélection produit
                 localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));
+
                 console.log(SelectionProduit);
+
                 console.log("produit ajouté à la commande en cours", SelectionProduit);
+
                 alert ('Le produit sélectionné a bien été ajouté à votre panier.');             // Message de confirmation de validation pour l'utilisateur
 
             }
