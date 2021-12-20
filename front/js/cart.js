@@ -25,12 +25,16 @@ console.log(typeof(PanierProduit));
 
 
 
+
+
+
+
 // Traitement des cas possibles de PanierProduit et remplissage de <section id="cart__items">.
 
 
     // Cas où le panier est vide -> afficher que le panier est vide.
 
-if (PanierProduit === null || PanierProduit == 0) {
+if ( PanierProduit === null || PanierProduit == 0) {
     
     let InserPanierVide = document.getElementById('cart__items');
     
