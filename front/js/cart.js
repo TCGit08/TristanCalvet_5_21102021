@@ -52,8 +52,10 @@ if ( PanierProduit === null || PanierProduit == 0) {
     // Cas où le panier n'est pas vide
         
 }else{
+
+    console.log(PanierProduit.length)
     
-    for(i=0; i< PanierProduit.lengh; i++){
+    for(i=0; i< PanierProduit.length; i++){
 
         // Utiliser la section en commentaire dans cart.html et remplir avec les éléments des produits sélectionnés (cf product.js)
 

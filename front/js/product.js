@@ -108,8 +108,8 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // Lorsqu’on ajoute un produit au panier, si celui-ci était déjà présent dans le panier (même id + même couleur), 
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
 
-        console.log(localStorage);  
-                                                                                   // Vérification récupération de donnée     
+        console.log(localStorage);                                   // Vérification récupération de donnée     
+        
         if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si" récupération d'un item "Produit" par le localStorage
             
             console.log(localStorage); 
