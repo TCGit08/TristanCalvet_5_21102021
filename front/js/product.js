@@ -85,20 +85,20 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
 
         // Données sélectionnées par l'utilisateur envoyées par le bouton "Ajouter au panier"
 
-        let SelectionProduit = {
-            IdSelectionProduit: parseInt(id),                                           // Récupération de l'id et transformation de sa forme string au format integer
-            ImgSelectionProduit: data.imageUrl,                                         // Récupération image produit sélectionné
-            NomSelectionProduit: data.name,                                             // Récupération nom produit sélectionné 
-            PrixSelectionProduit: data.price,                                           // Récupération prix produit sélectionné
-            AltTxtSelectionProduit: data.altTxt,                                        // Récupération text alt produit sélectionné
-            CouleurSelectionProduit: document.querySelector('#colors').value,           // Récupération couleur produit sélectionné dans le sélecteur (id="colors")
-            QuantiteSelectionProduit: document.querySelector('#quantity').value,        // Récupération couleur produit sélectionné dans le sélecteur (id="quantity")
-        }
+    let SelectionProduit = {
+        IdSelectionProduit: parseInt(id),                                           // Récupération de l'id et transformation de sa forme string au format integer
+        ImgSelectionProduit: data.imageUrl,                                         // Récupération image produit sélectionné
+        NomSelectionProduit: data.name,                                             // Récupération nom produit sélectionné 
+        PrixSelectionProduit: data.price,                                           // Récupération prix produit sélectionné
+        AltTxtSelectionProduit: data.altTxt,                                        // Récupération text alt produit sélectionné
+        CouleurSelectionProduit: document.querySelector('#colors').value,           // Récupération couleur produit sélectionné dans le sélecteur (id="colors")
+        QuantiteSelectionProduit: document.querySelector('#quantity').value,        // Récupération couleur produit sélectionné dans le sélecteur (id="quantity")
+    }
 
         
     // Stockage des données dans le LocalStorage
 
-        let StockageSelectionProduit = [];                           // Création d'un array de stockage des données produit sélectionnées par l'utilisateur      
+    let StockageSelectionProduit = [];                           // Création d'un array de stockage des données produit sélectionnées par l'utilisateur      
 
 
         // Comportement de l'array de stockage : 
@@ -108,15 +108,31 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // Lorsqu’on ajoute un produit au panier, si celui-ci était déjà présent dans le panier (même id + même couleur), 
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
 
-        console.log(localStorage);                                   // Vérification récupération de donnée     
+        console.log(localStorage);
         
-        if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si" récupération d'un item "Produit" par le localStorage
+        
+        // Vérification récupération de donnée  
+        
+    if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si"  pas récupération d'un item "Produit" par le localStorage
             
             console.log(localStorage); 
             
             alert ("Aucun produit n'a été ajouté à votre panier.");
+    
+        }else  
 
-        } else{
+            if (SelectionProduit.CouleurSelectionProduit === null || SelectionProduit.CouleurSelectionProduit == 0 ) {
+
+                alert ("Aucune couleur choisie. Veuillez choisir une couleur.");
+
+            }else 
+
+                if (SelectionProduit.QuantiteSelectionProduit === null || SelectionProduit.QuantiteSelectionProduit < 1 || SelectionProduit.QuantiteSelectionProduit > 100) {
+
+                alert ("Aucune quantité valide choisie. Veuillez choisir une quantité valide.");
+
+            
+            }else{
 
             StockageSelectionProduit = JSON.parse(localStorage.getItem("Selection"));      // Conversion d'une string JSON en un objet pour manipulation
 
@@ -136,20 +152,20 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
 
             if (RepetitionSelectionProduit.length) {
 
-                let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
+            let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
 
-                    console.log(typeof SelectionProduit.QuantiteSelectionProduit);                        // Number ou parseInt ?
+                console.log(typeof SelectionProduit.QuantiteSelectionProduit);                        // Number ou parseInt ?
 
-                    console.log(typeof RepetitionSelectionProduit[0].QuantiteSelectionProduit);    
+                console.log(typeof RepetitionSelectionProduit[0].QuantiteSelectionProduit);    
 
-                    console.log(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
+                console.log(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
 
-                    confirm ('Produit déjà présent dans votre panier. Quantité actuelle : ' + TotalQuantiteSelectionProduit);
+            confirm ('Produit déjà présent dans votre panier. Quantité actuelle : ' + TotalQuantiteSelectionProduit);
 
                     console.log(RepetitionSelectionProduit[0]);
                     
-                StockageSelectionProduit.push(SelectionProduit);
-                localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));    // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
+            StockageSelectionProduit.push(SelectionProduit);
+            localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));    // Création paire clé/valeur dans le stockage avec conversion en string de la valeur
 
             } else{
                 
@@ -158,18 +174,15 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 StockageSelectionProduit.push(SelectionProduit);                                // Ajout de la sélection de produit au stockage de la sélection produit
                 localStorage.setItem("Selection", JSON.stringify(StockageSelectionProduit));
 
-                console.log(SelectionProduit);
+                    console.log(SelectionProduit);
 
-                console.log("produit ajouté à la commande en cours", SelectionProduit);
+                    console.log("produit ajouté à la commande en cours", SelectionProduit);
 
                 alert ('Le produit sélectionné a bien été ajouté à votre panier.');             // Message de confirmation de validation pour l'utilisateur
 
             }
             
         }
-
-                         
-            
 
     })
 

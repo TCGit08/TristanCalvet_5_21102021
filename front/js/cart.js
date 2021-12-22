@@ -25,10 +25,6 @@ console.log(typeof(PanierProduit));
 
 
 
-
-
-
-
 // Traitement des cas possibles de PanierProduit et remplissage de <section id="cart__items">.
 
 
@@ -72,8 +68,8 @@ if ( PanierProduit === null || PanierProduit == 0) {
                 <div class="cart__item__content"> 
                     <div class="cart__item__content__description">
                         <h2>${PanierProduit[i].NomSelectionProduit}</h2>
-                        <p>${PanierProduit[i].CouleurSelectionProduit}</p>
-                        <p>${PanierProduit[i].PrixSelectionProduit}</p>
+                        <p>Couleur choisie : ${PanierProduit[i].CouleurSelectionProduit}</p>
+                        <p>Prix unitaire : ${PanierProduit[i].PrixSelectionProduit} €</p>
                     </div> 
                     <div class="cart__item__content__settings">
                         <div class="cart__item__content__settings__quantity">
@@ -91,4 +87,7 @@ if ( PanierProduit === null || PanierProduit == 0) {
 
     }
 }
+
+
+
 
