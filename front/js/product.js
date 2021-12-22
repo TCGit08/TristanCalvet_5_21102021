@@ -98,7 +98,8 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
         
     // Stockage des données dans le LocalStorage
 
-    let StockageSelectionProduit = [];                           // Création d'un array de stockage des données produit sélectionnées par l'utilisateur      
+    localStorage.setItem('CouleurSelectionProduit', document.querySelector('#colors').value);
+    localStorage.setItem('QuantitSelectionProduit', document.querySelector('#quantity').value);
 
 
         // Comportement de l'array de stockage : 
@@ -107,39 +108,28 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
                 // Lorsqu’on ajoute un produit au panier, si celui-ci n'était pas déjà présent dans le panier, on ajoute un nouvel élément dans l’array.
                 // Lorsqu’on ajoute un produit au panier, si celui-ci était déjà présent dans le panier (même id + même couleur), 
                 // on incrémente simplement la quantité du produit correspondant dans l’array.
-
-        console.log(localStorage);
+               
         
-        
-        // Vérification récupération de donnée  
-        
-    if (localStorage.getItem("Selection") === null || localStorage.getItem("Selection") == 0) {            // "Si"  pas récupération d'un item "Produit" par le localStorage
-            
-            console.log(localStorage); 
-            
-            alert ("Aucun produit n'a été ajouté à votre panier.");
-    
-        }else  
+    if (SelectionProduit.CouleurSelectionProduit === null || SelectionProduit.CouleurSelectionProduit == 0 ) {
 
-            if (SelectionProduit.CouleurSelectionProduit === null || SelectionProduit.CouleurSelectionProduit == 0 ) {
+        alert ("Aucune couleur choisie. Veuillez choisir une couleur.");
 
-                alert ("Aucune couleur choisie. Veuillez choisir une couleur.");
+    }else 
 
-            }else 
+        if (SelectionProduit.QuantiteSelectionProduit === null || SelectionProduit.QuantiteSelectionProduit < 1 || SelectionProduit.QuantiteSelectionProduit > 100) {
 
-                if (SelectionProduit.QuantiteSelectionProduit === null || SelectionProduit.QuantiteSelectionProduit < 1 || SelectionProduit.QuantiteSelectionProduit > 100) {
-
-                alert ("Aucune quantité valide choisie. Veuillez choisir une quantité valide.");
+            alert ("Aucune quantité valide choisie. Veuillez choisir une quantité valide.");
 
             
-            }else{
+        }else{
+
 
             StockageSelectionProduit = JSON.parse(localStorage.getItem("Selection"));      // Conversion d'une string JSON en un objet pour manipulation
 
 
             // Cas d'une sélection produit déjà présente:  id de produit identique et une couleur identique pour un même id (&& :vrai si et uniquement si ses deux opérandes sont true ou équivalents à true)
 
-            const RepetitionSelectionProduit = StockageSelectionProduit.filter(product => product.CouleurSelectionProduit === SelectionProduit.CouleurSelectionProduit && product.IdSelectionProduit === SelectionProduit.IdSelectionProduit);
+            const RepetitionSelectionProduit = SelectionProduit.filter(product => product.CouleurSelectionProduit === SelectionProduit.CouleurSelectionProduit && product.IdSelectionProduit === SelectionProduit.IdSelectionProduit);
 
                 console.log(RepetitionSelectionProduit.length);                             // Affichage du nombre de paires clé/valeur
 
@@ -150,7 +140,7 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
 
                 // Ajout au stock et mise à jour de celui-ci avec notification à l'utilisateur
 
-            if (RepetitionSelectionProduit.length) {
+            if (RepetitionSelectionProduit.length >= 2) {
 
             let TotalQuantiteSelectionProduit = parseInt(SelectionProduit.QuantiteSelectionProduit) + parseInt(RepetitionSelectionProduit[0].QuantiteSelectionProduit);
 
