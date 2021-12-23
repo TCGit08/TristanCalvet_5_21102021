@@ -124,7 +124,7 @@ for (i=0; i<data.colors.length; i++  ){                           	// Boucle d'a
         }else{
 
 
-            StockageSelectionProduit = JSON.parse(localStorage.getItem("Selection"));      // Conversion d'une string JSON en un objet pour manipulation
+            StockageSelectionProduit = JSON.parse(localStorage.getItem("SelectionProduit"));      // Conversion d'une string JSON en un objet pour manipulation
 
 
             // Cas d'une sélection produit déjà présente:  id de produit identique et une couleur identique pour un même id (&& :vrai si et uniquement si ses deux opérandes sont true ou équivalents à true)
