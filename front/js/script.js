@@ -25,7 +25,6 @@ fetch (urlAPIKanap)
 
 
 
-
   // Création balise section contenant les produits dans la page d'accueil
 
   const sectionItems = document.createElement('section'); 						           // création balise section
