@@ -94,7 +94,7 @@ function fillProduct(product){
         if(localItems) {
             let newQuantity = parseInt(itemCart.quantity);
             for(i = 0; i < localItems.length; i++) {                                                
-                if(localItems[i].id == itemCart.id && localItems[i].color == itemCart.color) {      // Cas où même Id et même couleur.
+                if(localItems[i].id == itemCart.id && localItems[i].color == itemCart.color) {      // Cas où même id et même couleur.
                     newQuantity += parseInt(localItems[i].quantity);                                // Conversion en integer pour manip.
                     localItems.splice(i,1);                                                         // A partir de l'index i, suppression d'1 élément.
                 }
@@ -112,6 +112,10 @@ function fillProduct(product){
                 localItems.push(itemCart);
             }
             localStorage.setItem('itemToCart', JSON.stringify(localItems));
+
+            console.log(localItems);
+            alert ('Le produit sélectionné a bien été ajouté à votre panier.');
+
         }else {
             localItems = [];
 
@@ -121,8 +125,8 @@ function fillProduct(product){
             localStorage.setItem('itemToCart', JSON.stringify(localItems))
 
             console.log(localItems);
+            alert ('Le produit sélectionné a bien été ajouté à votre panier.');
         }  
     });
 }
-
 
