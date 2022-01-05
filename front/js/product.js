@@ -92,13 +92,18 @@ function fillProduct(product){
         console.log(localItems);
 
         if(localItems) {
+
             let newQuantity = parseInt(itemCart.quantity);
+
             for(i = 0; i < localItems.length; i++) {                                                
+                
                 if(localItems[i].id == itemCart.id && localItems[i].color == itemCart.color) {      // Cas où même id et même couleur.
-                    newQuantity += parseInt(localItems[i].quantity);                                // Conversion en integer pour manip.
-                    localItems.splice(i,1);                                                         // A partir de l'index i, suppression d'1 élément.
+                    newQuantity += parseInt(localItems[i].quantity);                                                                // Conversion en integer pour manip.
+                    localItems.splice(i,1);                                                                                         // A partir de l'index i, suppression d'1 élément.
                 }
+                
             }
+
             itemCart.quantity = newQuantity;
 
             console.log(itemCart.name);

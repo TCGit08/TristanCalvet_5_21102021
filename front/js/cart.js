@@ -9,7 +9,7 @@
 
 //  Récupération des éléments du panier
 
-let localItems = JSON.parse(localStorage.getItem('itemToCart')); 
+let localItems = JSON.parse(localStorage.getItem('itemToCart'));
 
 console.log(localItems);
 
@@ -52,9 +52,9 @@ titrePagePanier.innerHTML = "Kanap - Panier";                   // Changement dy
 
 function addChosenArticle() {
 
-    for(j = 0; j < localItems; j++) {         // i déjà utilisé dans une autre boucle. Changement pour éviter les conflits.
+    for(j = 0; j < localItems.length; j++) {         // i déjà utilisé dans une autre boucle. Changement pour éviter les conflits.
 
-    // Récupération de la <section id="cart__items"> contenant les éléments du panier (cf. cart.html) 
+    // Récupération de la <section id="cart__items"> contenant les éléments du panier (cf. cart.html)
     const cartItemsBal = document.getElementById('cart__items');
 
 
@@ -65,7 +65,7 @@ function addChosenArticle() {
     const imgBal = document.createElement('img');
     const divItemContBal = document.createElement('div');
     const divContDescBal = document.createElement('div');
-    const hNameBal = document.createElement('h2')
+    const hNameBal = document.createElement('h2');
     const pColorBal = document.createElement('p');
     const pPriceBal = document.createElement('p');
     const divContSettings = document.createElement('div');
@@ -96,7 +96,7 @@ function addChosenArticle() {
 
 
     // Eléments contenus dans les balises (statiques et dynamiques(données stockées)) et ajout de l'affichage du prix total par type de produit.
-    
+
     articleBal.appendChild(divImgBal) + articleBal.appendChild(divItemContBal);
     divImgBal.appendChild(imgBal);
     divImgBal.querySelector('img').src = localItems[j].img;
@@ -110,10 +110,11 @@ function addChosenArticle() {
     divContDescBal.appendChild(hNameBal) + divContDescBal.appendChild(pPriceBal);
     divContDescBal.querySelector('h2').textContent = localItems[j].name + " - " + localItems[j].color;
     let totPriceProdUni = localItems[j].quantity*localItems[j].price;                                       // Prix total par type de produit.
-    divContDescBal.querySelector('p').textContent = totPriceProdUni + ' € ';
+    divContDescBal.querySelector('p').textContent = ' Montant total produit : ' + totPriceProdUni + ' € ' + ' - ' + '(Montant unitaire : ' + localItems[j].price + ' € )' ;
     pDelBal.textContent = 'Supprimer';
 
     // Entrée des données produits du panier dans la balise correspondante du panier.  
+
     cartItemsBal.appendChild(articleBal);
 
     }
@@ -140,6 +141,113 @@ function totalPriceProd() {
 }
 
 
+// Fonction modification du contenu du panier
+
+function modifPanier(){
+
+    // Sélection de l'élément à modifier : itemQuantity
+    const itemQuantityModif = document.querySelectorAll('.itemQuantity');
+
+    console.log(localItems);
+
+    // Boucle pour l'application des modif sur l'ensemble des éléments du panier disposant d'une quantité à modifier.
+    for(let l = 0; l < itemQuantityModif.length; l++) {
+
+        // Suivi du changement de l'input et modification.
+        itemQuantityModif[l].addEventListener('change', (event) => {
+            event.preventDefault();
+            let itemModif  = parseInt(localItems[l].quantity);         
+            let modifValue =  parseInt(itemQuantityModif[l].value);
+            let modif = localItems.find(el => el.modifValue != itemModif);
+            localItems[l].quantity = modifValue;
+            localStorage.setItem("itemToCart", JSON.stringify(localItems));
+
+            // Rechargement de la page pour tenir compte des modifications apportées au panier.
+            window.location.reload();
+        });
+    }
+}
+
+
+
+// Fonction suppression d'élément du panier.
+
+function supprItem() {
+
+    // Sélection de l'élément "Supprimer" des produits du panier.
+    const supprButton = document.querySelectorAll('.deleteItem');
+    
+    // Boucle pour l'application à tous les éléments contenus dans le panier.
+    for(let m = 0; m < supprButton.length; m++) {
+
+        // Suivi du "click" du bouton "Supprimer" et action résultante du click.
+        supprButton[m].addEventListener('click', (event) => {
+            event.preventDefault();
+            let supprId = localItems[m].id;
+            let supprColor = localItems[m].color;
+            localItems = localItems.filter( el => el.id !== supprId || el.color !== supprColor );
+            localStorage.setItem("itemToCart", JSON.stringify(localItems));
+
+            // Rechargement de la page pour tenir compte des modifications apportées au panier.
+            window.location.reload();
+
+        });
+    }
+}
+
+// Fonction validation du formulaire.
+
+function validForm() {
+
+    // Récupération du formulaire.
+    let formulaire = document.querySelector('cart__order__form');
+
+
+    // Vérification des entrées du formulaire. 
+
+    // Vérification du prénom.
+    formulaire.firstName.addEventListener('change', function () {
+       validFirstName(this); 
+    });
+
+    // Vérification du nom.
+    formulaire.lastName.addEventListener('change', function () {
+       validLastName(this); 
+    });
+    
+    // Vérification de l'adresse.
+    formulaire.address.addEventListener('change', function () {
+       validAddress(this); 
+    });
+    
+    // Vérification de la ville.
+    formulaire.city.addEventListener('change', function () {
+       validCity(this); 
+    });
+
+    // Vérification de l'adresse mail.
+    formulaire.email.addEventListener('change', function () {
+       validEmail(this); 
+    });
+
+
+    // Cas du prénom.
+    const validFirstName = function(inputFirstName) {
+        
+    }
+
+
+
+
+
+
+
+
+
+
+}
+
+
 
 
 
@@ -148,4 +256,6 @@ if (localItems === null) {
 }else {
     addChosenArticle();
     totalPriceProd();
+    modifPanier();
+    supprItem();
 }
