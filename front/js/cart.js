@@ -200,7 +200,7 @@ function supprItem() {
 function validForm() {
 
     // Récupération du formulaire.
-    let formulaire = document.querySelector('cart__order__form');
+    let formulaire = document.querySelector('.cart__order__form');
 
 
     // Vérification des entrées du formulaire. 
@@ -231,20 +231,79 @@ function validForm() {
     });
 
 
-    // Cas du prénom.
+    // Cas du prénom. Méthode de vérification avec regex.
     const validFirstName = function(inputFirstName) {
+        let regexFirstName = new RegExp('^[A-Z][A-Za-z\é\è\ê\ç\-]+$', 'g');
         
+        // Vérification de la valeur.
+        let verifFirstName = regexFirstName.test(inputFirstName.value);
+        const errFirstName = inputFirstName.nextElementSibling;
+        if(verifFirstName) {
+            errFirstName.innerHTML = '';
+        }else {
+            errFirstName.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un prénom valide.'
+        }
     }
 
 
+    // Cas du Nom. Méthode de vérification avec regex.
+    const validLastName = function(inputLastName) {
+        let regexLastName = new RegExp('^[A-Z][A-Za-z\é\è\ê\ç\-]+$', 'g');
+        
+        // Vérification de la valeur.
+        let verifLastName = regexLastName.test(inputLastName.value);
+        const errLastName = inputLastName.nextElementSibling;
+        if(verifLastName) {
+            errLastName.innerHTML = '';
+        }else {
+            errLastName.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un nom valide.'
+        }
+    }
 
 
+    // Cas de l'Adresse. Méthode de vérification avec regex.
+    const validAddress = function(inputAddress) {
+        let regexAddress = new RegExp('^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+', 'g');
+        
+        // Vérification de la valeur.
+        let verifAddress = regexAddress.test(inputAddress.value);
+        const errAddress = inputAddress.nextElementSibling;
+        if(verifAddress) {
+            errAddress.innerHTML = '';
+        }else {
+            errAddress.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec une adresse valide.'
+        }
+    }
 
 
+    // Cas de la ville. Méthode de vérification avec regex.
+    const validCity = function(inputCity) {
+        let regexCity = new RegExp('^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$', 'g');
+        
+        // Vérification de la valeur.
+        let verifCity = regexCity.test(inputCity.value);
+        const errCity = inputCity.nextElementSibling;
+        if(verifCity) {
+            errCity.innerHTML = '';
+        }else {
+            errCity.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec une ville valide.'
+        }
+    }
 
 
-
-
+    // Cas de l'email. Méthode de vérification avec regex.
+    const validEmail = function(inputEmail) {
+        let regexEmail = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
+        
+        // Vérification de la valeur.
+        let verifEmail = regexEmail.test(inputEmail.value);
+        const errEmail = inputEmail.nextElementSibling;
+        if(verifEmail) {
+            errEmail.innerHTML = '';
+        }else {
+            errEmail.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un adresse mail valide.'
+        }
+    }
 }
 
 
@@ -258,4 +317,5 @@ if (localItems === null) {
     totalPriceProd();
     modifPanier();
     supprItem();
+    validForm();
 }
