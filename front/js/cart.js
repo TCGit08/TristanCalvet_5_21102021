@@ -307,15 +307,79 @@ function validForm() {
 }
 
 
+// Fonction récupération des données de la commande et leur envoi.
+
+function orderData() {
+
+    // Comportement du bouton de validation de commande "Commander !".
+        // Ciblage
+    const commanderButt = document.getElementById('order');
+
+    // Suivi du click sur le bouton "Commander !"
+    commanderButt.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        // Récupération des données du formulaire de commande. Ciblage des éléments.
+        const firstNameDat = document.getElementById('firtsName');
+        const lastNameDat = document.getElementById('lastName');
+        const addressDat = document.getElementById('address');
+        const cityDat = document.getElementById('city');
+        const emailDat = document.getElementById('email');
 
 
+        // Stockage des données du formulaires accompagnées des id produit.
+        // Traitement des id produits.
+        let produitId = [];
+        for(let n = 0; n < localItems.length; n++) {
+            produitId.push(localItems[n].id);    
+        }
+    
+        // Objet contenant les données de la commande.
+        let commandeData = {
+            contactform : {
+                firstName: firstNameDat,
+                lastName: lastNameDat,
+                address: addressDat,
+                city: cityDat,
+                email: emailDat,
+            },
+            products: produitId, 
+        }
 
-if (localItems === null) {
-    alert('Votre panier ne contient actuellement aucun produit');
-}else {
-    addChosenArticle();
-    totalPriceProd();
-    modifPanier();
-    supprItem();
-    validForm();
+        // Récupération de l'id de l'order par l'API.
+        let commandPost = {
+            method: 'POST',
+            body: JSON.stringify(commandeData),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+    
+        // Envoi des données de la commande à l'API.
+        fetch('http://localhost:3000/api/products/order', commandPost)
+    
+        .then(function(response) {
+            return response.json();
+        })
+
+       .then((dataList) => {
+          localStorage.setItem("orderId", JSON.stringify(dataList.orderId));
+          document.location.href = `confirmation.html?id=${dataList.orderId}`;
+        })
+        .catch((error) => {
+          console.log(`ERREUR requete POST : ${error}`);
+        });          
+    })
 }
+
+addChosenArticle();
+totalPriceProd();
+modifPanier();
+supprItem();
+validForm();
+orderData();
+
+
+
+
