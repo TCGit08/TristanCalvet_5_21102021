@@ -20,3 +20,4 @@ function clearStorage() {
   localStorage.removeItem("orderId");
 }
 clearStorage();
+

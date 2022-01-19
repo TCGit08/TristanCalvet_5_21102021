@@ -320,11 +320,11 @@ function orderData() {
         event.preventDefault();
 
         // Récupération des données du formulaire de commande. Ciblage des éléments.
-        const firstNameDat = document.getElementById('firtsName');
-        const lastNameDat = document.getElementById('lastName');
-        const addressDat = document.getElementById('address');
-        const cityDat = document.getElementById('city');
-        const emailDat = document.getElementById('email');
+        let firstNameDat = document.querySelector('#firstName').value;
+        let lastNameDat = document.querySelector('#lastName').value;
+        let addressDat = document.querySelector('#address').value;
+        let cityDat = document.querySelector('#city').value;
+        let emailDat = document.querySelector('#email').value;
 
 
         // Stockage des données du formulaires accompagnées des id produit.
@@ -336,7 +336,7 @@ function orderData() {
     
         // Objet contenant les données de la commande.
         let commandeData = {
-            contactform : {
+            contact : {
                 firstName: firstNameDat,
                 lastName: lastNameDat,
                 address: addressDat,
@@ -356,15 +356,16 @@ function orderData() {
             }
         }
     
+
         // Envoi des données de la commande à l'API.
-        fetch('http://localhost:3000/api/products/order', commandPost)
+        fetch(`http://localhost:3000/api/products/order`, commandPost)
     
         .then(function(response) {
             return response.json();
         })
 
-       .then((dataList) => {
-          localStorage.setItem("orderId", JSON.stringify(dataList.orderId));
+        .then((dataList) => {
+          localStorage.setItem('orderId', JSON.stringify(dataList.orderId));
           document.location.href = `confirmation.html?id=${dataList.orderId}`;
         })
         .catch((error) => {
