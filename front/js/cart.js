@@ -195,7 +195,7 @@ function supprItem() {
     }
 }
 
-// Fonction validation du formulaire.
+/**  Fonction validation du formulaire.
 
 function validForm() {
 
@@ -233,30 +233,34 @@ function validForm() {
 
     // Cas du prénom. Méthode de vérification avec regex.
     const validFirstName = function(inputFirstName) {
-        let regexFirstName = new RegExp('^[A-Z][A-Za-z\é\è\ê\ç\-]+$', 'g');
+        let regexFirstName = new RegExp('^[A-Za-z\é\è\ê\ç\-]+$', 'g');
         
         // Vérification de la valeur.
         let verifFirstName = regexFirstName.test(inputFirstName.value);
         const errFirstName = inputFirstName.nextElementSibling;
         if(verifFirstName) {
-            errFirstName.innerHTML = '';
+            errFirstName.innerHTML = 'Entrée Prénom validée.';
+            return verifFirstName;
         }else {
-            errFirstName.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un prénom valide.'
+            errFirstName.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un prénom valide.';
+            return false;
         }
     }
 
 
     // Cas du Nom. Méthode de vérification avec regex.
     const validLastName = function(inputLastName) {
-        let regexLastName = new RegExp('^[A-Z][A-Za-z\é\è\ê\ç\-]+$', 'g');
+        let regexLastName = new RegExp('^[A-Za-z\é\è\ê\ç\-]+$', 'g');
         
         // Vérification de la valeur.
         let verifLastName = regexLastName.test(inputLastName.value);
         const errLastName = inputLastName.nextElementSibling;
         if(verifLastName) {
-            errLastName.innerHTML = '';
+            errLastName.innerHTML = 'Entrée Nom validée.';
+            return verifLastName;
         }else {
             errLastName.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un nom valide.'
+            return false;
         }
     }
 
@@ -269,9 +273,11 @@ function validForm() {
         let verifAddress = regexAddress.test(inputAddress.value);
         const errAddress = inputAddress.nextElementSibling;
         if(verifAddress) {
-            errAddress.innerHTML = '';
+            errAddress.innerHTML = 'Entrée Adresse validée.';
+            return verifAddress;
         }else {
             errAddress.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec une adresse valide.'
+            return false;
         }
     }
 
@@ -284,9 +290,11 @@ function validForm() {
         let verifCity = regexCity.test(inputCity.value);
         const errCity = inputCity.nextElementSibling;
         if(verifCity) {
-            errCity.innerHTML = '';
+            errCity.innerHTML = 'Entrée Ville validée.';
+            return verifCity;
         }else {
             errCity.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec une ville valide.'
+            return false;
         }
     }
 
@@ -299,87 +307,198 @@ function validForm() {
         let verifEmail = regexEmail.test(inputEmail.value);
         const errEmail = inputEmail.nextElementSibling;
         if(verifEmail) {
-            errEmail.innerHTML = '';
+            errEmail.innerHTML = 'Entrée Email validée.';
+            return verifEmail;
         }else {
             errEmail.innerHTML = 'Entrée invalide. Veuillez compléter ce champ avec un adresse mail valide.'
+            return false;
         }
     }
 }
+**/
 
+// formulaire de contact et validation des entrées.
 
-// Fonction récupération des données de la commande et leur envoi.
+addEventListener('change', () => {
 
-function orderData() {
-
-    // Comportement du bouton de validation de commande "Commander !".
-        // Ciblage
-    const commanderButt = document.getElementById('order');
-
-    // Suivi du click sur le bouton "Commander !"
-    commanderButt.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        // Récupération des données du formulaire de commande. Ciblage des éléments.
+    function validFirstName() {
         let firstNameDat = document.querySelector('#firstName').value;
+        let textValid = document.getElementById('firstNameErrorMsg');
+        let regScheme = new RegExp('^[A-Za-z\é\è\ê\ç\-]+$', 'g');
+
+        if (firstNameDat.match(regScheme)) {
+            textValid.innerHTML = 'Prénom validé.';
+            textValid.style.color = 'green';
+            return firstNameDat;
+        } else {
+            textValid.innerHTML = 'Veuillez entrer un prénom valide.';
+            textValid.style.color = 'red';
+        }
+        if (firstName == '') {
+            textValid.innerHTML = '';
+        }
+    }
+
+    function validLastName() {
         let lastNameDat = document.querySelector('#lastName').value;
+        let textValid = document.getElementById('lastNameErrorMsg');
+        let regScheme = new RegExp('^[A-Za-z\é\è\ê\ç\-]+$', 'g');
+
+        if (lastNameDat.match(regScheme)) {
+            textValid.innerHTML = 'Nom validé.';
+            textValid.style.color = 'green';
+            return lastNameDat;            
+        } else {
+            textValid.innerHTML = 'Veuillez entrer un nom valide.';
+            textValid.style.color = 'red';
+        }
+
+        if (lastNameDat == '') {
+            textValid.innerHTML = '';
+        }
+    }
+    
+    function validAddress() {
         let addressDat = document.querySelector('#address').value;
+        let textValid = document.getElementById('addressErrorMsg');
+        let regScheme =  new RegExp('^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+', 'g');
+
+        if (addressDat.match(regScheme)) {
+            textValid.innerHTML = 'Adresse validée.';
+            textValid.style.color = 'green';
+            return addressDat;
+        } else {
+            textValid.innerHTML = 'Veuillez entrer une adresse valide';
+            textValid.style.color = 'red';
+        }
+        if (addressDat == '') {
+            textValid.innerHTML = '';
+        }
+    }
+
+    function validCity() {
         let cityDat = document.querySelector('#city').value;
+        let textValid = document.getElementById('cityErrorMsg');
+        let regScheme = new RegExp('^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$', 'g');
+
+        if (cityDat.match(regScheme)) {
+            textValid.innerHTML = 'Ville validée.';
+            textValid.style.color = 'green';
+            return cityDat;
+        } else {
+            textValid.innerHTML = 'Veuillez entrer un nom de ville valide.';
+            textValid.style.color = 'red';
+        }
+        if (cityDat == '') {
+            textValid.innerHTML = '';
+        }
+    }
+
+    function validEmail() {
         let emailDat = document.querySelector('#email').value;
+        let textValid = document.getElementById('emailErrorMsg');
+        let regScheme = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
 
-
-        // Stockage des données du formulaires accompagnées des id produit.
-        // Traitement des id produits.
-        let produitId = [];
-        for(let n = 0; n < localItems.length; n++) {
-            produitId.push(localItems[n].id);    
+        if (emailDat.match(regScheme)) {
+            textValid.innerHTML = 'Email validé.';
+            textValid.style.color = 'green';
+            return emailDat;
+        } else {
+            textValid.innerHTML = 'Veuillez entrer une adresse mail valide.';
+            textValid.style.color = 'red';
         }
-    
-        // Objet contenant les données de la commande.
-        let commandeData = {
-            contact : {
-                firstName: firstNameDat,
-                lastName: lastNameDat,
-                address: addressDat,
-                city: cityDat,
-                email: emailDat,
-            },
-            products: produitId, 
+        if (emailDat == '') {
+            textValid.innerHTML = '';
         }
+    }
 
-        // Récupération de l'id de l'order par l'API.
-        let commandPost = {
-            method: 'POST',
-            body: JSON.stringify(commandeData),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+    validFirstName();
+    validLastName();
+    validAddress();
+    validCity();
+    validEmail();
+
+
+    // Fonction récupération des données de la commande et leur envoi.
+    function orderData() {
+        // Comportement du bouton de validation de commande "Commander !".
+        const commanderButt = document.getElementById('order');
+
+        // Suivi du click sur le bouton "Commander !"
+        commanderButt.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Stockage des données du formulaires accompagnées des id produit.
+            let produitId = [];
+            for(let n = 0; n < localItems.length; n++) {
+                produitId.push(localItems[n].id);    
             }
-        }
+    
+            // Objet contenant les données de la commande.
+            let contact = {
+                firstName: validFirstName(),
+                lastName: validLastName(),
+                address: validAddress(),
+                city: validCity(),
+                email: validEmail(),  
+            }
+
+
+            if (
+                contact.firstName == undefined ||
+                contact.lastName == undefined ||
+                contact.address == undefined ||
+                contact.city == undefined ||
+                contact.email == undefined 
+            ) {
+                return false
+            }
+
+
+            const commandeData = {
+                contact,
+                products: produitId,
+            }
+
+
+            // Récupération de l'id de l'order par l'API.
+            let commandPost = {
+                method: 'POST',
+                body: JSON.stringify(commandeData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }
     
 
-        // Envoi des données de la commande à l'API.
-        fetch(`http://localhost:3000/api/products/order`, commandPost)
+            // Envoi des données de la commande à l'API.
+            fetch(`http://localhost:3000/api/products/order`, commandPost)
     
-        .then(function(response) {
-            return response.json();
-        })
+            .then(function(response) {
+                return response.json();
+            })
 
-        .then((dataList) => {
-          localStorage.setItem('orderId', JSON.stringify(dataList.orderId));
-          document.location.href = `confirmation.html?id=${dataList.orderId}`;
+            .then((dataList) => {
+                localStorage.setItem('orderId', JSON.stringify(dataList.orderId));
+                document.location.href = `confirmation.html?id=${dataList.orderId}`;
+            })
+            .catch((error) => {
+                console.log(`ERREUR requete POST : ${error}`);
+            });          
         })
-        .catch((error) => {
-          console.log(`ERREUR requete POST : ${error}`);
-        });          
-    })
-}
+    }
+    orderData();
+    
+})
+
+
 
 addChosenArticle();
 totalPriceProd();
 modifPanier();
 supprItem();
-validForm();
-orderData();
+
 
 
 

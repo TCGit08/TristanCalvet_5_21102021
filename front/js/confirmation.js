@@ -15,6 +15,7 @@ function displayOrderId() {
 
 displayOrderId();
 
+
 // Suppression du Local Storage
 function clearStorage() {
   localStorage.removeItem("orderId");
